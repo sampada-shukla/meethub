@@ -1,6 +1,5 @@
 import  { useState} from 'react';
 import {
-  //BarChart3,
   LayoutDashboard,
   Play,
   ExternalLink,
@@ -11,15 +10,11 @@ import {
   UserCheck,
   Download,
   Sparkles,
-  //CreditCard,
   AlertCircle,
   Clock,
   FileText,
   Key,
   Mic,
-  //Shield,
-  //UserPlus,
-  //Lock,
   UserX,
 } from 'lucide-react';
 import { useEffect } from 'react';
@@ -75,7 +70,22 @@ const screenshotBoxStyles = [
     shadow: 'rgba(139,92,246,0.25)',
   },
 ];
-
+type TutorialStep = {
+  number: number;
+  title: string;
+  description: string;
+  icon: React.ForwardRefExoticComponent<any>
+  iconColor: string;
+  image: string;
+  details?: string[];
+}
+type TutorialSection = {
+  sectionId: number;
+  sectionTitle: string;
+  sectionDescription: string;
+  steps: TutorialStep[];
+};  
+  
 
 export const tutorialSections = [
   /* =========================
