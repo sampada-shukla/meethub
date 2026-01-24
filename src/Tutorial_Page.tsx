@@ -467,7 +467,7 @@ export default function TutorialPage() {
               fontSize: '1.15rem',
             }}
           >
-            Getting Started with Work Eye
+            Getting Started with MeetHub
           </p>
           <p
             style={{
