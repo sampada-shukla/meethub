@@ -29,9 +29,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 import logoImage from "./components/assets/meethub.png";
-import upgrade_1 from "./components/assets/upgrade.png";
-import lobby_1 from "./components/assets/lobby.png";
-import create_meeting_1 from "./components/assets/create_meeting_1.png";
+import upgrade from "./components/assets/upgrade.png";
+import lobby from "./components/assets/lobby.png";
+import create_meeting from "./components/assets/create_meeting.png";
 import create_meeting_summary from "./components/assets/create_meeting_summary.png";
 import meeting_code_1 from "./components/assets/meeting_code.png";
 import meeting_screen from "./components/assets/meeting_screen.png";
