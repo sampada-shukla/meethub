@@ -27,18 +27,18 @@ import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 //import { AuthContext } from '../src/context/AuthContext';
 
-
 import logoImage from "./components/assets/meethub.png";
+
 import upgrade from "./components/assets/upgrade.png";
 import lobby from "./components/assets/lobby.png";
-import create_meeting from "./components/assets/create_meeting.png";
+import create_meeting_1 from "./components/assets/create_meeting_1.png";
 import create_meeting_summary from "./components/assets/create_meeting_summary.png";
-import meeting_code_1 from "./components/assets/meeting_code.png";
+import meeting_code from "./components/assets/meeting_code.png";
 import meeting_screen from "./components/assets/meeting_screen.png";
-import recording_1 from "./components/assets/recording.png";
-import share_link_1 from "./components/assets/share_link.png";
+import recording from "./components/assets/recording.png";
+import share_link from "./components/assets/share_link.png";
 import join_meeting_code from "./components/assets/join_meeting_code.png";
-import waiting_1 from "./components/assets/waiting.png";
+import waiting from "./components/assets/waiting.png";
 import join_meeting_screen from "./components/assets/join_meeting_screen.png";
 import remove_meeting from "./components/assets/remove_meeting.png";
 import transcriptor from "./components/assets/transcriptor.png";
@@ -48,7 +48,9 @@ import join_meeting_summary from "./components/assets/join_meeting_summary.png";
 import export_summary from "./components/assets/export_summary.png";
 import live_mic_indicator from "./components/assets/live_mic_indicator.png";
 
-import Footer from "./components/Footer";
+
+import { TutorialVideo } from './components/TutorialVideo';
+import  Footer from './components/Footer';
 
 
 const screenshotBoxStyles = [
@@ -74,23 +76,8 @@ const screenshotBoxStyles = [
   },
 ];
 
-type TutorialStep = {
-  number: number;
-  title: string;
-  description: string;
-  icon: React.ForwardRefExoticComponent<any>;
-  iconColor: string;
-  image: string;
-  details?: string[]; 
-};
 
-type TutorialSection = {
-  sectionId: number;
-  sectionTitle: string;
-  sectionDescription: string;
-  steps: TutorialStep[];
-};
- export const tutorialSections: TutorialSection[] = [
+export const tutorialSections = [
   /* =========================
      2. DASHBOARD
   ========================= */
@@ -137,7 +124,7 @@ type TutorialSection = {
           'Host enters meeting name and optional title to create a new meeting.',
         icon: Users,
         iconColor: 'rgb(59, 130, 246)',
-        image: create_meeting,
+        image: create_meeting_1,
       },
       {
         number: 4,
@@ -146,7 +133,7 @@ type TutorialSection = {
           'A unique meeting code is generated for participants to join.',
         icon: Key,
         iconColor: 'rgb(168, 85, 247)',
-        image: meeting_code_1,
+        image: meeting_code,
       },
       {
         number: 5,
@@ -165,7 +152,7 @@ type TutorialSection = {
           'Host clicks Start Recording. Recording begins and real-time AI transcription starts.',
         icon: Mic,
         iconColor: 'rgb(239, 68, 68)',
-        image: recording_1,
+        image: recording,
       },
       {
         number: 7,
@@ -174,7 +161,7 @@ type TutorialSection = {
           'Share meeting link modal allowing copy link, WhatsApp sharing, and email invitation options.',
         icon: ExternalLink,
         iconColor: 'rgb(59, 130, 246)',
-        image: share_link_1,
+        image: share_link,
       },
       {
         number: 8,
@@ -214,7 +201,7 @@ type TutorialSection = {
           'Participant waits in the waiting room until the host admits them.',
         icon: Clock,
         iconColor: 'rgb(249, 115, 22)',
-        image: waiting_1,
+        image: waiting,
       },
       {
         number: 11,
@@ -327,6 +314,7 @@ type TutorialSection = {
 
 ];
 
+        
 export default function TutorialPage() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
  
@@ -359,7 +347,7 @@ export default function TutorialPage() {
                 </div>
                 
                 <h1 style={{ fontSize: '3.25rem', fontWeight: 800,marginBottom: '1.5rem',lineHeight: '1.1',letterSpacing: '-0.02em' }}>
-                  <span style={{ color: 'rgb(6, 182, 212)',fontWeight: 900 }}>Explore MeetHub</span>{' '}
+                  <span style={{ color: 'rgb(6, 182, 212)',fontWeight: 900 }}>Explore Work Eye</span>{' '}
                   <span style={{ color: 'rgb(30, 41, 59)' }}>with Detailed Step-by-Step Tutorials</span>
                 </h1>
                 
