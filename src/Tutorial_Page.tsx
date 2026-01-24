@@ -77,7 +77,7 @@ type TutorialStep = {
   icon: React.ForwardRefExoticComponent<any>
   iconColor: string;
   image: string;
-  details?: string[];
+  details?: string[] | undefined;
 }
 type TutorialSection = {
   sectionId: number;
