@@ -74,7 +74,7 @@ type TutorialStep = {
   number: number;
   title: string;
   description: string;
-  icon: React.ForwardRefExoticComponent<any>
+  icon: React.ForwardRefExoticComponent<any>;
   iconColor: string;
   image: string;
   details?: string[] | undefined;
@@ -84,10 +84,8 @@ type TutorialSection = {
   sectionTitle: string;
   sectionDescription: string;
   steps: TutorialStep[];
-};  
-  
-
-export const tutorialSections = [
+};
+ export const tutorialSections: TutorialSection[] = [
   /* =========================
      2. DASHBOARD
   ========================= */
@@ -716,7 +714,6 @@ export default function TutorialPage() {
               transform: 'translate(-50%, -50%)',
               width: '320px',
               background: 'rgba(15, 23, 42, 0.95)',
-              //backdropFilter: 'blur(12px)',
               borderRadius: '1.25rem',
               padding: '1.5rem',
               boxShadow: '0 30px 60px rgba(0,0,0,0.6)',
@@ -783,23 +780,22 @@ export default function TutorialPage() {
               {step.description}
             </p>
 
-           
-   {('details' in step && Array.isArray(step.details) && step.details.length > 0) && (
-  <ul style={{ marginTop: '0.75rem', paddingLeft: '1rem' }}>
-    {step.details.map((d: string, i: number) => (
-      <li
-        key={i}
-        style={{
-          fontSize: '0.8rem',
-          color: 'rgba(255,255,255,0.75)',
-          marginBottom: '0.35rem',
-        }}
-      >
-        {d}
-      </li>
-    ))}
-  </ul>
-)}
+            {step.details && (
+              <ul style={{ marginTop: '0.75rem', paddingLeft: '1rem' }}>
+                {step.details.map((d: string, i: number) => (
+                  <li
+                    key={i}
+                    style={{
+                      fontSize: '0.8rem',
+                      color: 'rgba(255,255,255,0.75)',
+                      marginBottom: '0.35rem',
+                    }}
+                  >
+                    {d}
+                  </li>
+                ))}
+              </ul>
+            )}
           </motion.div>
         )}
         </motion.div>
