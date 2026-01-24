@@ -107,7 +107,7 @@ type TutorialSection = {
           'Dashboard displays Create Meeting and Join Meeting options along with system status.',
         icon: LayoutDashboard,
         iconColor: 'rgb(236, 72, 153)',
-        image: upgrade_1,
+        image: lobby,
       },
     ],
   },
@@ -128,7 +128,7 @@ type TutorialSection = {
           'When a host clicks Create Meeting without an active plan, the system prompts the user to upgrade.Host completes payment and activates a subscription plan.',
         icon: AlertCircle,
         iconColor: 'rgb(249, 115, 22)',
-        image: lobby_1,
+        image: upgrade,
       },
        {
         number: 3,
@@ -137,7 +137,7 @@ type TutorialSection = {
           'Host enters meeting name and optional title to create a new meeting.',
         icon: Users,
         iconColor: 'rgb(59, 130, 246)',
-        image: create_meeting_1,
+        image: create_meeting,
       },
       {
         number: 4,
