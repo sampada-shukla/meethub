@@ -359,7 +359,7 @@ export default function TutorialPage() {
                 </div>
                 
                 <h1 style={{ fontSize: '3.25rem', fontWeight: 800,marginBottom: '1.5rem',lineHeight: '1.1',letterSpacing: '-0.02em' }}>
-                  <span style={{ color: 'rgb(6, 182, 212)',fontWeight: 900 }}>Explore Work Eye</span>{' '}
+                  <span style={{ color: 'rgb(6, 182, 212)',fontWeight: 900 }}>Explore MeetHub</span>{' '}
                   <span style={{ color: 'rgb(30, 41, 59)' }}>with Detailed Step-by-Step Tutorials</span>
                 </h1>
                 
@@ -492,7 +492,7 @@ export default function TutorialPage() {
           fontWeight: 700,
         }}
       >
-        Welcome to Work Eye Tutorial
+        Welcome to MeetHub Tutorial
       </h3>
 
       <p
@@ -575,7 +575,7 @@ export default function TutorialPage() {
         lineHeight: 1.6,
       }}
     >
-      Master Work Eye with our comprehensive guide covering every feature
+      Master MeetHub with our comprehensive guide covering every feature
       from sign-up to advanced functionality
     </p>
   </div>
