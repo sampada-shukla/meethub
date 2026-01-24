@@ -783,21 +783,22 @@ export default function TutorialPage() {
               {step.description}
             </p>
 
-            {step.details && (
-              <ul style={{ marginTop: '0.75rem', paddingLeft: '1rem' }}>
-                {step.details.map((d: string, i: number) => (
-                  <li
-                    key={i}
-                    style={{
-                      fontSize: '0.8rem',
-                      color: 'rgba(255,255,255,0.75)',
-                      marginBottom: '0.35rem',
-                    }}
-                  >
-                    {d}
-                  </li>
-                ))}
-              </ul>
+           {'details' in step && Array.isArray(step.details) && step.details.length > 0 && (
+  <ul style={{ marginTop: '0.75rem', paddingLeft: '1rem' }}>
+    {step.details.map((d: string, i: number) => (
+      <li
+        key={i}
+        style={{
+          fontSize: '0.8rem',
+          color: 'rgba(255,255,255,0.75)',
+          marginBottom: '0.35rem',
+        }}
+      >
+        {d}
+      </li>
+    ))}
+  </ul>
+)}
             )}
           </motion.div>
         )}
