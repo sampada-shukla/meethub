@@ -355,7 +355,7 @@ export default function TutorialPage() {
                 </div>
                 
                 <h1 style={{ fontSize: '3.25rem', fontWeight: 800,marginBottom: '1.5rem',lineHeight: '1.1',letterSpacing: '-0.02em' }}>
-                  <span style={{ color: 'rgb(6, 182, 212)',fontWeight: 900 }}>Explore Work Eye</span>{' '}
+                  <span style={{ color: 'rgb(6, 182, 212)',fontWeight: 900 }}>Explore MeetHub</span>{' '}
                   <span style={{ color: 'rgb(30, 41, 59)' }}>with Detailed Step-by-Step Tutorials</span>
                 </h1>
                 

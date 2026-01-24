@@ -34,7 +34,7 @@ const Footer = () => {
           color: '#9ca3af',
         }}
       >
-        © 2025 MeetTranscribe Pro. All rights reserved.
+        © 2026 MeetTranscribe Pro. All rights reserved.
       </div>
     </footer>
   );
