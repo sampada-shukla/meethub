@@ -783,7 +783,8 @@ export default function TutorialPage() {
               {step.description}
             </p>
 
-           {('details' in step && Array.isArray(step.details) && step.details.length > 0) && (
+           
+   {('details' in step && Array.isArray(step.details) && step.details.length > 0) && (
   <ul style={{ marginTop: '0.75rem', paddingLeft: '1rem' }}>
     {step.details.map((d: string, i: number) => (
       <li
@@ -799,7 +800,9 @@ export default function TutorialPage() {
     ))}
   </ul>
 )}
-</motion.div>
+          </motion.div>
+        )}
+        </motion.div>
       </div>
     );
   })}
