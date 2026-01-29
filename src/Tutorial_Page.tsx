@@ -319,7 +319,6 @@ type TutorialSection = {
         
 export default function TutorialPage() {
   let colorIndex = 0
-
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
 
   useEffect(() => {
@@ -343,185 +342,12 @@ export default function TutorialPage() {
         fontFamily: '"Inter", sans-serif',
       }}
     >
-      {/* Background */}
-      <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(135deg, rgba(224,247,250,0.3) 0%, rgba(255,255,255,0) 50%)',
-            opacity: 0.6,
-          }}
-        />
-      </div>
-
       <div style={{ position: 'relative', zIndex: 10 }}>
-        {/* Hero Section */}
-        <section
-          style={{
-            padding: '3rem 1.5rem',
-            minHeight: '500px',
-            display: 'flex',
-            alignItems: 'center',
-            background: 'linear-gradient(135deg, #ecfeff 0%, #ffffff 50%, #ecfeff 100%)',
-          }}
-        >
-          <div style={{ maxWidth: '1280px', margin: '0 auto', width: '100%', padding: '0 1.5rem' }}>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1.1fr 0.9fr',
-                gap: '3rem',
-                alignItems: 'center',
-              }}
-            >
-              {/* LEFT: Text Content */}
-              <div style={{ maxWidth: '650px' }}>
-                <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  style={{
-                    fontFamily: '"Poppins", sans-serif',
-                    fontSize: '48px',
-                    fontWeight: 700,
-                    marginBottom: '1rem',
-                    lineHeight: '58px',
-                    letterSpacing: '-0.025em',
-                  }}
-                >
-                  
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-                  <img src={logoImage} alt="MeetHub Logo" style={{ width: '7.5rem', height: '7.5rem', objectFit: 'contain' }} />
-                </div>
 
-                  <span style={{ color: 'rgb(6, 182, 212)', fontWeight: 900 }}>Explore MeetHub</span>{' '}
-                  <span style={{ color: '#0F172A' }}>with Detailed Step-by-Step Tutorials</span>
-                </motion.h1>
-                <motion.p
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                  style={{
-                    fontFamily: '"Inter", sans-serif',
-                    fontSize: '16px',
-                    fontWeight: 400,
-                    color: '#475569',
-                    marginBottom: '1.5rem',
-                    lineHeight: '26px',
-                  }}
-                >
-                  Learn how to streamline operations, boost productivity, and scale faster with comprehensive tutorials
-                  covering setup, configuration, and advanced features.
-                </motion.p>
-                {/* Feature List */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                  style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}
-                >
-                  {[
-                    'Quick start guides for instant setup',
-                    'Advanced feature walkthroughs',
-                    'How it works steps for smooth onboarding',
-                  ].map((feature, idx) => (
-                    <motion.div
-                      key={feature}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: 0.5 + idx * 0.1 }}
-                      style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}
-                    >
-                      <div
-                        style={{
-                          width: '2.25rem',
-                          height: '2.25rem',
-                          borderRadius: '0.5rem',
-                          background: 'rgba(6, 182, 212, 0.15)',
-                          border: '2px solid rgb(6, 182, 212)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          flexShrink: 0,
-                        }}
-                      >
-                        <CheckCircle style={{ width: '1.25rem', height: '1.25rem', color: 'rgb(6, 182, 212)' }} />
-                      </div>
-                      <span
-                        style={{
-                          fontFamily: "'Inter', sans-serif",
-                          fontSize: '16px',
-                          fontWeight: 500,
-                          color: '#475569',
-                          lineHeight: '26px',
-                        }}
-                      >
-                        {feature}
-                      </span>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </div>
-
-              {/* RIGHT: Enhanced Video Card */}
-              <motion.div
-                style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
-                animate={{ y: [0, -12, 0] }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              >
-                <TutorialVideo />
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* Tutorial Section Header */}
-        <section
-          style={{ padding: '2rem 1.5rem 1.5rem', background: 'linear-gradient(to bottom, rgba(255,255,255,0), #f8fafc)' }}
-        >
-          <div style={{ maxWidth: '1280px', margin: '0 auto', textAlign: 'center', padding: '0 1.5rem' }}>
-            <h2
-              style={{
-                fontFamily: '"Poppins", sans-serif',
-                fontSize: '36px',
-                fontWeight: 700,
-                color: 'rgb(20, 47, 83)',
-                marginBottom: '0.65rem',
-                lineHeight: '46px',
-              }}
-            >
-              Complete Step-by-Step Guide
-            </h2>
-
-            <p
-              style={{
-                fontFamily: '"Inter", sans-serif',
-                fontSize: '16px',
-                color: '#475569',
-                maxWidth: '720px',
-                margin: '0 auto',
-                lineHeight: '26px',
-                fontWeight: 400,
-              }}
-            >
-              Master MeetHub with our comprehensive guide covering every feature from sign-up to advanced
-              functionality
-            </p>
-          </div>
-        </section>
-
-        {/* ================= TUTORIAL CONTENT ================= */}
+        {/* ================= SECTION 1 & 2 ================= */}
         <section style={{ padding: '1.5rem 1.5rem 2rem' }}>
           <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1.5rem' }}>
 
-            {/* =====================================================
-                SECTION 1 & 2 — SIDE BY SIDE (ONE IMAGE EACH)
-            ====================================================== */}
             <div
               style={{
                 display: 'grid',
@@ -533,6 +359,8 @@ export default function TutorialPage() {
               {[tutorialSections[0], tutorialSections[1]].map((section, index) => {
                 const step = section.steps[0]
                 const boxStyle = getScreenshotStyle(index)
+                const Icon = step.icon
+                const isHovered = hoveredCard === step.number
 
                 return (
                   <div key={section.sectionId}>
@@ -560,6 +388,8 @@ export default function TutorialPage() {
                     </p>
 
                     <div
+                      onMouseEnter={() => setHoveredCard(step.number)}
+                      onMouseLeave={() => setHoveredCard(null)}
                       style={{
                         background: boxStyle.bg,
                         border: `2px solid ${boxStyle.border}`,
@@ -576,14 +406,51 @@ export default function TutorialPage() {
                         />
                       </div>
                     </div>
+
+                    {/* TOOLTIP */}
+                    {isHovered && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        style={{
+                          position: 'fixed',
+                          top: '20%',
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          width: '380px',
+                          background: 'rgba(15,23,42,0.97)',
+                          color: 'white',
+                          borderRadius: '1.25rem',
+                          padding: '1.5rem',
+                          zIndex: 9999,
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: '3rem',
+                            height: '3rem',
+                            borderRadius: '0.75rem',
+                            background: step.iconColor,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginBottom: '0.75rem',
+                          }}
+                        >
+                          <Icon color="white" size={22} />
+                        </div>
+                        <h4 style={{ fontSize: '18px', fontWeight: 600 }}>{step.title}</h4>
+                        <p style={{ fontSize: '14px', opacity: 0.85 }}>
+                          {step.description}
+                        </p>
+                      </motion.div>
+                    )}
                   </div>
                 )
               })}
             </div>
 
-            {/* =====================================================
-                SECTIONS 3+ — ORIGINAL GRID (UNCHANGED)
-            ====================================================== */}
+            {/* ================= SECTIONS 3+ (UNCHANGED) ================= */}
             {tutorialSections.slice(2).map((section) => (
               <div key={section.sectionId} style={{ marginBottom: '4rem' }}>
                 <div style={{ marginBottom: '2rem' }}>
@@ -598,13 +465,7 @@ export default function TutorialPage() {
                   >
                     {section.sectionTitle}
                   </h3>
-                  <p
-                    style={{
-                      fontFamily: '"Inter", sans-serif',
-                      fontSize: '16px',
-                      color: '#64748b',
-                    }}
-                  >
+                  <p style={{ fontSize: '16px', color: '#64748b' }}>
                     {section.sectionDescription}
                   </p>
                 </div>
@@ -616,7 +477,7 @@ export default function TutorialPage() {
                     gap: '2.5rem',
                   }}
                 >
-                  {section.steps.map((step, stepIndex) => {
+                  {section.steps.map((step) => {
                     const boxStyle = getScreenshotStyle(colorIndex++)
                     const Icon = step.icon
                     const isHovered = hoveredCard === step.number
@@ -627,68 +488,57 @@ export default function TutorialPage() {
                         onMouseEnter={() => setHoveredCard(step.number)}
                         onMouseLeave={() => setHoveredCard(null)}
                       >
-                        <motion.div
-                          initial={{ opacity: 0, y: 30 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: stepIndex * 0.08 }}
-                          viewport={{ once: true }}
+                        <div
+                          style={{
+                            background: boxStyle.bg,
+                            border: `2px solid ${boxStyle.border}`,
+                            borderRadius: '1.75rem',
+                            padding: '0.5rem',
+                            boxShadow: `0 4px 12px ${boxStyle.shadow}`,
+                          }}
                         >
-                          <div
+                          <div style={{ borderRadius: '1.1rem', overflow: 'hidden' }}>
+                            <img src={step.image} alt={step.title} style={{ width: '100%' }} />
+                          </div>
+                        </div>
+
+                        {isHovered && (
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
                             style={{
-                              background: boxStyle.bg,
-                              border: `2px solid ${boxStyle.border}`,
-                              borderRadius: '1.75rem',
-                              padding: '0.5rem',
-                              boxShadow: `0 4px 12px ${boxStyle.shadow}`,
+                              position: 'fixed',
+                              top: '20%',
+                              left: '50%',
+                              transform: 'translateX(-50%)',
+                              width: '380px',
+                              background: 'rgba(15,23,42,0.97)',
+                              color: 'white',
+                              borderRadius: '1.25rem',
+                              padding: '1.5rem',
+                              zIndex: 9999,
                             }}
                           >
-                            <div style={{ borderRadius: '1.1rem', overflow: 'hidden' }}>
-                              <img
-                                src={step.image}
-                                alt={step.title}
-                                style={{ width: '100%', display: 'block' }}
-                              />
-                            </div>
-                          </div>
-
-                          {isHovered && (
-                            <motion.div
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
+                            <div
                               style={{
-                                position: 'fixed',
-                                top: '20%',
-                                left: '50%',
-                                transform: 'translateX(-50%)',
-                                width: '380px',
-                                background: 'rgba(15,23,42,0.97)',
-                                color: 'white',
-                                borderRadius: '1.25rem',
-                                padding: '1.5rem',
-                                zIndex: 9999,
+                                width: '3rem',
+                                height: '3rem',
+                                borderRadius: '0.75rem',
+                                background: step.iconColor,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                marginBottom: '0.75rem',
                               }}
                             >
-                              <div
-                                style={{
-                                  width: '3rem',
-                                  height: '3rem',
-                                  borderRadius: '0.75rem',
-                                  background: step.iconColor,
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  marginBottom: '0.75rem',
-                                }}
-                              >
-                                <Icon color="white" size={22} />
-                              </div>
-                              <h4 style={{ fontSize: '18px', fontWeight: 600 }}>{step.title}</h4>
-                              <p style={{ fontSize: '14px', opacity: 0.85 }}>
-                                {step.description}
-                              </p>
-                            </motion.div>
-                          )}
-                        </motion.div>
+                              <Icon color="white" size={22} />
+                            </div>
+                            <h4 style={{ fontSize: '18px', fontWeight: 600 }}>{step.title}</h4>
+                            <p style={{ fontSize: '14px', opacity: 0.85 }}>
+                              {step.description}
+                            </p>
+                          </motion.div>
+                        )}
                       </div>
                     )
                   })}
@@ -697,49 +547,6 @@ export default function TutorialPage() {
             ))}
           </div>
         </section>
-
-        {/* CTA SECTION */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: '1rem',
-            marginBottom: '2rem',
-          }}
-        >
-          <button
-            onClick={() => (window.location.href = 'https://frontend-8x7e.onrender.com/')}
-            style={{
-              fontFamily: '"Poppins", sans-serif',
-              padding: '1.25rem 3.5rem',
-              background: 'rgb(30, 41, 59)',
-              color: 'white',
-              borderRadius: '1rem',
-              border: 'none',
-              fontSize: '16px',
-              fontWeight: 500,
-              lineHeight: '24px',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.75rem',
-              boxShadow: '0 6px 15px rgba(0,0,0,0.15)',
-              transition: 'all 0.3s',
-              whiteSpace: 'nowrap',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgb(15, 23, 42)'
-              e.currentTarget.style.transform = 'scale(1.04)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgb(30, 41, 59)'
-              e.currentTarget.style.transform = 'scale(1)'
-            }}
-          >
-            Go to Dashboard
-            <ArrowRight style={{ width: '1.6rem', height: '1.6rem' }} />
-          </button>
-        </div>
 
         <Footer />
       </div>
