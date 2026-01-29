@@ -769,8 +769,4 @@ export default function TutorialPage() {
 }
  
 
-        <Footer />
-      </div>
-    </div>
-  )
-}
+        
