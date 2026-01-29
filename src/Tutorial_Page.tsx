@@ -322,7 +322,6 @@ export default function TutorialPage() {
 
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
 
-  // Import Google Fonts (Poppins and Inter)
   useEffect(() => {
     const link = document.createElement('link')
     link.href =
@@ -393,7 +392,7 @@ export default function TutorialPage() {
                 >
                   
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-                  <img src={logoImage} alt="work Eye Logo" style={{ width: '7.5rem', height: '7.5rem', objectFit: 'contain' }} />
+                  <img src={logoImage} alt="MeetHub Logo" style={{ width: '7.5rem', height: '7.5rem', objectFit: 'contain' }} />
                 </div>
 
                   <span style={{ color: 'rgb(6, 182, 212)', fontWeight: 900 }}>Explore MeetHub</span>{' '}
@@ -519,231 +518,20 @@ export default function TutorialPage() {
         {/* Tutorial Cards Section */}
         <section style={{ padding: '1.5rem 1.5rem 2rem' }}>
           <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1.5rem' }}>
-            {/* Single-step sections */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-                columnGap: '3rem',
-                rowGap: '2rem',
-                marginBottom: '3rem',
-                alignItems: 'start',
-              }}
-            >
-              {tutorialSections
-                .filter((section) => section.steps.length === 1)
-                .map((section) => (
-                  <div
-                    key={section.sectionId}
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: 0,
-                      height: '100%',
-                    }}
-                  >
-                    <h3
-                      style={{
-                        fontFamily: '"Poppins", sans-serif',
-                        fontSize: '36px',
-                        fontWeight: 600,
-                        color: 'rgb(20, 47, 83)',
-                        marginBottom: '0.2rem',
-                        lineHeight: '46px',
-                        minHeight: '100px',
-                      }}
-                    >
-                      {section.sectionTitle}
-                    </h3>
-
-                    <p
-                      style={{
-                        fontFamily: '"Inter", sans-serif',
-                        fontSize: '16px',
-                        fontWeight: 400,
-                        color: '#475569',
-                        marginBottom: '2rem',
-                        lineHeight: '26px',
-                        minHeight: '78px',
-                      }}
-                    >
-                      {section.sectionDescription}
-                    </p>
-
-                    {section.steps.map((step, stepIndex) => {
-                      const boxStyle = getScreenshotStyle(colorIndex++)
-                      const Icon = step.icon
-                      const isHovered = hoveredCard === step.number
-
-                      return (
-                        <div
-                          key={step.number}
-                          onMouseEnter={() => setHoveredCard(step.number)}
-                          onMouseLeave={() => setHoveredCard(null)}
-                          style={{
-                            position: 'relative',
-                            width: '100%',
-                          }}
-                        >
-                          <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{
-                              duration: 0.5,
-                              delay: stepIndex * 0.08,
-                              ease: 'easeOut',
-                            }}
-                            viewport={{ once: true, margin: '-50px', amount: 0.2 }}
-                            style={{ height: '100%' }}
-                          >
-                            <div
-                              style={{
-                                position: 'relative',
-                                overflow: 'visible',
-                                transform: isHovered ? 'scale(1.02)' : 'scale(1)',
-                                transition: 'transform 0.3s ease',
-                              }}
-                            >
-                              <div style={{ borderRadius: 0, overflow: 'visible', boxShadow: 'none' }}>
-                                <div
-                                  style={{
-                                    background: boxStyle.bg,
-                                    border: `2px solid ${boxStyle.border}`,
-                                    borderRadius: '1.75rem',
-                                    padding: '0.5rem',
-                                    boxShadow: `0 4px 12px ${boxStyle.shadow}`,
-                                  }}
-                                >
-                                  <div
-                                    style={{
-                                      borderRadius: '1.1rem',
-                                      overflow: 'hidden',
-                                      display: 'flex',
-                                      justifyContent: 'center',
-                                      alignItems: 'center',
-                                    }}
-                                  >
-                                    <img
-                                      src={step.image}
-                                      alt={step.title}
-                                      style={{
-                                        width: '100%',
-                                        height: 'auto',
-                                        display: 'block',
-                                        objectFit: 'cover',
-                                        background: 'transparent',
-                                      }}
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-
-                              {isHovered && (
-                                <motion.div
-                                  initial={{ opacity: 0, scale: 0.95 }}
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  exit={{ opacity: 0, scale: 0.95 }}
-                                  transition={{ duration: 0.2, ease: 'easeOut' }}
-                                  style={{
-                                    position: 'fixed',
-                                    top: '20%',
-                                    left: '50%',
-                                    transform: 'translateX(-50%)',
-                                    width: '320px',
-                                    background: 'rgba(15, 23, 42, 0.97)',
-                                    backdropFilter: 'blur(12px)',
-                                    borderRadius: '1.25rem',
-                                    padding: '1.5rem',
-                                    boxShadow: '0 15px 30px rgba(0,0,0,0.3)',
-                                    color: 'white',
-                                    zIndex: 999999,
-                                    pointerEvents: 'none',
-                                    whiteSpace: 'normal',
-                                    wordWrap: 'break-word',
-                                  }}
-                                >
-                                  <div
-                                    style={{
-                                      position: 'absolute',
-                                      top: '-14px',
-                                      left: '-14px',
-                                      width: '42px',
-                                      height: '42px',
-                                      borderRadius: '50%',
-                                      background: step.iconColor,
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      fontSize: '1.05rem',
-                                      fontWeight: 800,
-                                      color: 'white',
-                                      boxShadow: '0 5px 15px rgba(0,0,0,0.25)',
-                                      fontFamily: '"Poppins", sans-serif',
-                                    }}
-                                  >
-                                    {step.number}
-                                  </div>
-
-                                  <div
-                                    style={{
-                                      width: '3rem',
-                                      height: '3rem',
-                                      borderRadius: '0.75rem',
-                                      background: step.iconColor,
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      marginBottom: '0.75rem',
-                                    }}
-                                  >
-                                    <Icon color="white" size={22} />
-                                  </div>
-
-                                  <h4
-                                    style={{
-                                      fontFamily: '"Poppins", sans-serif',
-                                      fontSize: '18px',
-                                      fontWeight: 600,
-                                      marginBottom: '0.5rem',
-                                    }}
-                                  >
-                                    {step.title}
-                                  </h4>
-
-                                  <p
-                                    style={{
-                                      fontFamily: '"Inter", sans-serif',
-                                      fontSize: '14px',
-                                      color: 'rgba(255,255,255,0.85)',
-                                      lineHeight: '22px',
-                                      fontWeight: 400,
-                                    }}
-                                  >
-                                    {step.description}
-                                  </p>
-                                </motion.div>
-                              )}
-                            </div>
-                          </motion.div>
-                        </div>
-                      )
-                    })}
-                  </div>
-                ))}
-            </div>
-
-            {/* Multi-step sections */}
-            {tutorialSections
-              .filter((section) => section.steps.length > 1)
-              .map((section) => (
-                <div key={section.sectionId} style={{ marginBottom: '1rem' }}>
+            
+            {/* ALL SECTIONS - Unified Grid */}
+            {tutorialSections.map((section) => (
+              <div key={section.sectionId} style={{ marginBottom: '4rem' }}>
+                {/* Section Header */}
+                <div style={{ marginBottom: '2rem' }}>
                   <h3
                     style={{
                       fontFamily: '"Poppins", sans-serif',
-                      fontSize: '36px',
-                      fontWeight: 600,
+                      fontSize: '32px',
+                      fontWeight: 700,
                       color: 'rgb(20, 47, 83)',
-                      lineHeight: '46px',
+                      lineHeight: '1.3',
+                      marginBottom: '0.75rem',
                     }}
                   >
                     {section.sectionTitle}
@@ -753,189 +541,184 @@ export default function TutorialPage() {
                       fontFamily: '"Inter", sans-serif',
                       fontSize: '16px',
                       fontWeight: 400,
-                      color: '#475569',
-                      marginBottom: '1rem',
-                      lineHeight: '26px',
+                      color: '#64748b',
+                      lineHeight: '1.6',
                     }}
                   >
                     {section.sectionDescription}
                   </p>
+                </div>
 
-                  <div
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-                      columnGap: '2rem',
-                      rowGap: '2rem',
-                      paddingTop: '1.5rem',
-                      paddingInline: '0.5rem',
-                      alignItems: 'stretch',
-                    }}
-                  >
-                    {section.steps.map((step, stepIndex) => {
-                      const boxStyle = getScreenshotStyle(colorIndex++)
+                {/* Cards Grid - Same for all sections */}
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
+                    gap: '2.5rem',
+                    alignItems: 'start',
+                  }}
+                >
+                  {section.steps.map((step, stepIndex) => {
+                    const boxStyle = getScreenshotStyle(colorIndex++)
+                    const Icon = step.icon
+                    const isHovered = hoveredCard === step.number
 
-                      const Icon = step.icon
-                      const isHovered = hoveredCard === step.number
-
-                      return (
-                        <div
-                          key={step.number}
-                          onMouseEnter={() => setHoveredCard(step.number)}
-                          onMouseLeave={() => setHoveredCard(null)}
-                          style={{
-                            position: 'relative',
-                            width: '100%',
-                            maxWidth: '600px',
-                            margin: '0 auto',
+                    return (
+                      <div
+                        key={step.number}
+                        onMouseEnter={() => setHoveredCard(step.number)}
+                        onMouseLeave={() => setHoveredCard(null)}
+                        style={{
+                          position: 'relative',
+                          width: '100%',
+                        }}
+                      >
+                        <motion.div
+                          initial={{ opacity: 0, y: 30 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{
+                            duration: 0.5,
+                            delay: stepIndex * 0.08,
+                            ease: 'easeOut',
                           }}
+                          viewport={{ once: true, margin: '-50px', amount: 0.2 }}
+                          style={{ height: '100%' }}
                         >
-                          <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{
-                              duration: 0.5,
-                              delay: stepIndex * 0.08,
-                              ease: 'easeOut',
+                          <div
+                            style={{
+                              position: 'relative',
+                              overflow: 'visible',
+                              transform: isHovered ? 'scale(1.02)' : 'scale(1)',
+                              transition: 'transform 0.3s ease',
                             }}
-                            viewport={{ once: true, margin: '-50px', amount: 0.2 }}
-                            style={{ height: '100%' }}
                           >
-                            <div
-                              style={{
-                                position: 'relative',
-                                overflow: 'visible',
-                                transform: isHovered ? 'scale(1.02)' : 'scale(1)',
-                                transition: 'transform 0.3s ease',
-                              }}
-                            >
-                              <div style={{ borderRadius: 0, overflow: 'visible', boxShadow: 'none' }}>
+                            <div style={{ borderRadius: 0, overflow: 'visible', boxShadow: 'none' }}>
+                              <div
+                                style={{
+                                  background: boxStyle.bg,
+                                  border: `2px solid ${boxStyle.border}`,
+                                  borderRadius: '1.75rem',
+                                  padding: '0.5rem',
+                                  boxShadow: `0 4px 12px ${boxStyle.shadow}`,
+                                }}
+                              >
                                 <div
                                   style={{
-                                    background: boxStyle.bg,
-                                    border: `2px solid ${boxStyle.border}`,
-                                    borderRadius: '1.75rem',
-                                    padding: '0.5rem',
-                                    boxShadow: `0 4px 12px ${boxStyle.shadow}`,
+                                    borderRadius: '1.1rem',
+                                    overflow: 'hidden',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
                                   }}
                                 >
-                                  <div
+                                  <img
+                                    src={step.image}
+                                    alt={step.title}
                                     style={{
-                                      borderRadius: '1.1rem',
-                                      overflow: 'hidden',
-                                      display: 'flex',
-                                      justifyContent: 'center',
-                                      alignItems: 'center',
+                                      width: '100%',
+                                      height: 'auto',
+                                      display: 'block',
+                                      objectFit: 'cover',
+                                      background: 'transparent',
                                     }}
-                                  >
-                                    <img
-                                      src={step.image}
-                                      alt={step.title}
-                                      style={{
-                                        width: '100%',
-                                        height: 'auto',
-                                        display: 'block',
-                                        objectFit: 'cover',
-                                        background: 'transparent',
-                                      }}
-                                    />
-                                  </div>
+                                  />
                                 </div>
                               </div>
+                            </div>
 
-                              {isHovered && (
-                                <motion.div
-                                  initial={{ opacity: 0, scale: 0.95 }}
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  exit={{ opacity: 0, scale: 0.95 }}
-                                  transition={{ duration: 0.2, ease: 'easeOut' }}
+                            {isHovered && (
+                              <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                transition={{ duration: 0.2, ease: 'easeOut' }}
+                                style={{
+                                  position: 'fixed',
+                                  top: '20%',
+                                  left: '50%',
+                                  transform: 'translateX(-50%)',
+                                  width: '380px',
+                                  background: 'rgba(15, 23, 42, 0.97)',
+                                  backdropFilter: 'blur(12px)',
+                                  borderRadius: '1.25rem',
+                                  padding: '1.5rem',
+                                  boxShadow: '0 15px 30px rgba(0,0,0,0.3)',
+                                  color: 'white',
+                                  zIndex: 999999,
+                                  pointerEvents: 'none',
+                                  whiteSpace: 'normal',
+                                  wordWrap: 'break-word',
+                                }}
+                              >
+                                <div
                                   style={{
-                                    position: 'fixed',
-                                    top: '20%',
-                                    left: '50%',
-                                    transform: 'translateX(-50%)',
-                                    width: '320px',
-                                    background: 'rgba(15, 23, 42, 0.97)',
-                                    backdropFilter: 'blur(12px)',
-                                    borderRadius: '1.25rem',
-                                    padding: '1.5rem',
-                                    boxShadow: '0 15px 30px rgba(0,0,0,0.3)',
+                                    position: 'absolute',
+                                    top: '-14px',
+                                    left: '-14px',
+                                    width: '42px',
+                                    height: '42px',
+                                    borderRadius: '50%',
+                                    background: step.iconColor,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '1.05rem',
+                                    fontWeight: 800,
                                     color: 'white',
-                                    zIndex: 999999,
-                                    pointerEvents: 'none',
-                                    whiteSpace: 'normal',
-                                    wordWrap: 'break-word',
+                                    boxShadow: '0 5px 15px rgba(0,0,0,0.25)',
+                                    fontFamily: '"Poppins", sans-serif',
                                   }}
                                 >
-                                  <div
-                                    style={{
-                                      position: 'absolute',
-                                      top: '-14px',
-                                      left: '-14px',
-                                      width: '42px',
-                                      height: '42px',
-                                      borderRadius: '50%',
-                                      background: step.iconColor,
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      fontSize: '1.05rem',
-                                      fontWeight: 800,
-                                      color: 'white',
-                                      boxShadow: '0 5px 15px rgba(0,0,0,0.25)',
-                                      fontFamily: '"Poppins", sans-serif',
-                                    }}
-                                  >
-                                    {step.number}
-                                  </div>
+                                  {step.number}
+                                </div>
 
-                                  <div
-                                    style={{
-                                      width: '3rem',
-                                      height: '3rem',
-                                      borderRadius: '0.75rem',
-                                      background: step.iconColor,
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      marginBottom: '0.75rem',
-                                    }}
-                                  >
-                                    <Icon color="white" size={22} />
-                                  </div>
+                                <div
+                                  style={{
+                                    width: '3rem',
+                                    height: '3rem',
+                                    borderRadius: '0.75rem',
+                                    background: step.iconColor,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    marginBottom: '0.75rem',
+                                  }}
+                                >
+                                  <Icon color="white" size={22} />
+                                </div>
 
-                                  <h4
-                                    style={{
-                                      fontFamily: '"Poppins", sans-serif',
-                                      fontSize: '18px',
-                                      fontWeight: 600,
-                                      marginBottom: '0.5rem',
-                                    }}
-                                  >
-                                    {step.title}
-                                  </h4>
+                                <h4
+                                  style={{
+                                    fontFamily: '"Poppins", sans-serif',
+                                    fontSize: '18px',
+                                    fontWeight: 600,
+                                    marginBottom: '0.5rem',
+                                  }}
+                                >
+                                  {step.title}
+                                </h4>
 
-                                  <p
-                                    style={{
-                                      fontFamily: '"Inter", sans-serif',
-                                      fontSize: '14px',
-                                      color: 'rgba(255,255,255,0.85)',
-                                      lineHeight: '22px',
-                                      fontWeight: 400,
-                                    }}
-                                  >
-                                    {step.description}
-                                  </p>
-                                </motion.div>
-                              )}
-                            </div>
-                          </motion.div>
-                        </div>
-                      )
-                    })}
-                  </div>
+                                <p
+                                  style={{
+                                    fontFamily: '"Inter", sans-serif',
+                                    fontSize: '14px',
+                                    color: 'rgba(255,255,255,0.85)',
+                                    lineHeight: '22px',
+                                    fontWeight: 400,
+                                  }}
+                                >
+                                  {step.description}
+                                </p>
+                              </motion.div>
+                            )}
+                          </div>
+                        </motion.div>
+                      </div>
+                    )
+                  })}
                 </div>
-              ))}
+              </div>
+            ))}
           </div>
         </section>
 
@@ -987,6 +770,3 @@ export default function TutorialPage() {
     </div>
   )
 }
-
-    
-  
