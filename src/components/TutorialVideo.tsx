@@ -1,7 +1,7 @@
 import { Clock, Check, ExternalLink } from 'lucide-react'
 import { motion } from 'framer-motion'
 
-export const TutorialVideo = () => {
+export const EnhancedVideoCard = () => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -148,7 +148,7 @@ export const TutorialVideo = () => {
               textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
             }}
           >
-            Getting Started with MeetHub
+            Getting Started with Tally Connect
           </p>
 
           <p
@@ -187,7 +187,7 @@ export const TutorialVideo = () => {
             gap: '0.5rem',
           }}
         >
-          Welcome to MeetHub Tutorial
+          Welcome to Tally Connect Tutorial
         </h3>
 
         <p
@@ -282,7 +282,7 @@ export const TutorialVideo = () => {
         </motion.button>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .shimmer-effect {
           animation: shimmer 3s infinite;
         }
@@ -367,4 +367,4 @@ export const TutorialVideo = () => {
   )
 }
 
-export default TutorialVideo
+export default EnhancedVideoCard
