@@ -719,6 +719,55 @@ export default function TutorialPage() {
             ))}
           </div>
         </section>
+        {/* CTA SECTION */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '1rem',
+            marginBottom: '2rem',
+          }}
+        >
+          <button
+            onClick={() => (window.location.href = 'https://frontend-8x7e.onrender.com/')}
+            style={{
+              fontFamily: '"Poppins", sans-serif',
+              padding: '1.25rem 3.5rem',
+              background: 'rgb(30, 41, 59)',
+              color: 'white',
+              borderRadius: '1rem',
+              border: 'none',
+              fontSize: '16px',
+              fontWeight: 500,
+              lineHeight: '24px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              boxShadow: '0 6px 15px rgba(0,0,0,0.15)',
+              transition: 'all 0.3s',
+              whiteSpace: 'nowrap',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgb(15, 23, 42)'
+              e.currentTarget.style.transform = 'scale(1.04)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgb(30, 41, 59)'
+              e.currentTarget.style.transform = 'scale(1)'
+            }}
+          >
+            Go to Dashboard
+            <ArrowRight style={{ width: '1.6rem', height: '1.6rem' }} />
+          </button>
+        </div>
+
+        <Footer />
+      </div>
+    </div>
+  )
+}
+ 
 
         <Footer />
       </div>
