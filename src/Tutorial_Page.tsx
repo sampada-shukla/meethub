@@ -1,20 +1,14 @@
 import  { useState} from 'react';
 import {
-  LayoutDashboard,
   Play,
   ExternalLink,
   ArrowRight,
   CheckCircle,
   Users,
-  Monitor,
   UserCheck,
   Download,
   Sparkles,
   AlertCircle,
-  Clock,
-  FileText,
-  Key,
-  Mic,
   UserX,
 } from 'lucide-react';
 import { useEffect } from 'react';
