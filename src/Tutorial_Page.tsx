@@ -661,6 +661,7 @@ export default function TutorialPage() {
                       >
                         <div
                           style={{
+                            position: 'relative',
                             background: boxStyle.bg,
                             border: `2px solid ${boxStyle.border}`,
                             borderRadius: '1.75rem',
