@@ -85,7 +85,7 @@ type TutorialSection = {
   ========================= */
   {
     sectionId: 1,
-    sectionTitle: '📊 1: Dashboard Overview',
+    sectionTitle: '1: Dashboard Overview',
     sectionDescription:
       'Central hub to create or join meetings.',
     steps: [
@@ -106,7 +106,7 @@ type TutorialSection = {
   ========================= */
   {
     sectionId: 2,
-    sectionTitle: '🎙️ 2: Create Meeting (Host)',
+    sectionTitle: '2: Create Meeting (Host)',
     sectionDescription:
       'Upgrade plan, activate subscription, and host meetings with live transcription.',
     steps: [
@@ -182,7 +182,7 @@ type TutorialSection = {
   ========================= */
   {
     sectionId: 3,
-    sectionTitle: '👥 3: Join Meeting (Participant)',
+    sectionTitle: '3: Join Meeting (Participant)',
     sectionDescription:
       'Participants join meetings using a meeting code.',
     steps: [
@@ -231,7 +231,7 @@ type TutorialSection = {
   ========================= */
   {
     sectionId: 4,
-    sectionTitle: '📝 4: Live Transcription',
+    sectionTitle: '4: Live Transcription',
     sectionDescription:
       'AI-powered speech-to-text during meetings.',
     steps: [
@@ -263,7 +263,7 @@ type TutorialSection = {
   ========================= */
   {
     sectionId: 5,
-    sectionTitle: '🤖 5: AI Summary & Export',
+    sectionTitle: '5: AI Summary & Export',
     sectionDescription:
       'Automatic meeting summaries and export options.',
     steps: [
@@ -289,7 +289,7 @@ type TutorialSection = {
   },
   {
   sectionId: 6,
-  sectionTitle: '📁 6: Recent Meetings & Insights',
+  sectionTitle: '6: Recent Meetings & Insights',
   sectionDescription:
     'Review past meetings, access detailed records, and analyze summaries.',
   steps: [
