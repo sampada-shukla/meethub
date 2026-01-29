@@ -44,7 +44,7 @@ import export_summary from "./components/assets/export_summary.png";
 import live_mic_indicator from "./components/assets/live_mic_indicator.png";
 
 
-import {TutorialVideo}  from './components/TutorialVideo';
+import TutorialVideo  from './components/TutorialVideo';
 import  Footer from './components/Footer';
 
 
