@@ -148,7 +148,7 @@ export const EnhancedVideoCard = () => {
               textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
             }}
           >
-            Getting Started with Tally Connect
+            Getting Started with MeetHub
           </p>
 
           <p
@@ -187,7 +187,7 @@ export const EnhancedVideoCard = () => {
             gap: '0.5rem',
           }}
         >
-          Welcome to Tally Connect Tutorial
+          Welcome to MeetHub Tutorial
         </h3>
 
         <p
