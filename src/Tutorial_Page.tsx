@@ -18,7 +18,7 @@ LayoutDashboard,
   UserX,
 } from 'lucide-react';
 import { useEffect } from 'react';
-import { motion } from 'motion/react';
+import { aspectRatio, motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 //import { AuthContext } from '../src/context/AuthContext';
 
@@ -44,7 +44,7 @@ import export_summary from "./components/assets/export_summary.png";
 import live_mic_indicator from "./components/assets/live_mic_indicator.png";
 
 
-import TutorialVideo  from './components/TutorialVideo';
+import {TutorialVideo}  from './components/TutorialVideo';
 import  Footer from './components/Footer';
 
 
@@ -64,6 +64,28 @@ const getScreenshotStyle = (index: number) => {
     shadow: `hsla(${hue}, 70%, 55%, 0.25)`,
   }
 }
+// Container dimensions - keeps all cards equal size
+const CONTAINER_CONFIG = {
+  borderRadius: '1.5rem',
+  padding: '0.5rem',
+  aspectRatio: '16/9', 
+  innerBorderRadius: '1rem',
+}
+
+// Screenshot sizing - controls how images fit in containers
+const SCREENSHOT_CONFIG = {
+  default: {
+    objectFit: 'cover' as const,
+    width: '100%',
+    height: '100%',
+  },
+  // Override for specific step numbers if needed
+  overrides: {
+    16: { objectFit: 'cover' as const, maxWidth: '40%' },
+    18: { objectFit: 'cover' as const, maxHeight: '100%' },
+    15: { objectFit: 'cover' as const, maxHeight: '95%' },
+  }
+}
 type TutorialStep = {
   number: number;
   title: string;
@@ -72,6 +94,7 @@ type TutorialStep = {
   iconColor: string;
   image: string;
   details?: string[] | undefined;
+  //layout?: 'portrait' | 'landscape';
 }
 type TutorialSection = {
   sectionId: number;
@@ -284,6 +307,7 @@ type TutorialSection = {
         icon: Download,
         iconColor: 'rgb(34, 197, 94)',
         image: export_summary,
+        //layout: 'portrait',
       },
     ],
   },
@@ -310,22 +334,195 @@ type TutorialSection = {
       icon: FileText,
       iconColor: 'rgb(16, 185, 129)',
       image: recent_meetings_data,
+      //layout: 'portrait',
     },
   ],
 },
 
 ];
+interface ScreenshotCardProps {
+  step: TutorialStep;
+  stepIndex: number;
+  colorIndex: number;
+  isHovered: boolean;
+  onHover: (number: number | null) => void;
+}
 
-        
+const ScreenshotCard: React.FC<ScreenshotCardProps> = ({
+  step,
+  stepIndex,
+  colorIndex,
+  isHovered,
+  onHover,
+}) => {
+  const boxStyle = getScreenshotStyle(colorIndex)
+  const Icon = step.icon
+
+  // Get screenshot config for this specific step
+  const screenshotStyle = SCREENSHOT_CONFIG.overrides[step.number as keyof typeof SCREENSHOT_CONFIG.overrides] 
+    || SCREENSHOT_CONFIG.default
+
+  return (
+    <div
+      onMouseEnter={() => onHover(step.number)}
+      onMouseLeave={() => onHover(null)}
+      style={{
+        position: 'relative',
+        width: '100%',
+      }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.5,
+          delay: stepIndex * 0.05,
+          ease: 'easeOut',
+        }}
+        viewport={{ once: true, margin: '-50px', amount: 0.2 }}
+      >
+        <div
+          style={{
+            position: 'relative',
+            overflow: 'visible',
+            transform: isHovered ? 'scale(1.02)' : 'scale(1)',
+            transition: 'transform 0.3s ease',
+          }}
+        >
+          {/* Colored Container */}
+          <div
+            style={{
+              background: boxStyle.bg,
+              border: `2px solid ${boxStyle.border}`,
+              borderRadius: CONTAINER_CONFIG.borderRadius,
+              padding: CONTAINER_CONFIG.padding,
+              boxShadow: `0 4px 12px ${boxStyle.shadow}`,
+            }}
+          >
+            {/* Screenshot Container with Fixed Aspect Ratio */}
+            <div
+              style={{
+                borderRadius: CONTAINER_CONFIG.innerBorderRadius,
+                overflow: 'hidden',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                aspectRatio: CONTAINER_CONFIG.aspectRatio,
+                backgroundColor: '#f8f9fa',
+              }}
+            >
+              <img
+                src={step.image}
+                alt={step.title}
+                style={{
+                  ...screenshotStyle,
+                  display: 'block',
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Hover Tooltip */}
+          {isHovered && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              style={{
+                position: 'fixed',
+                top: '20%',
+                left: '44%',
+                transform: 'translateX(-50%,-50%)',
+                width: '360px',
+                background: 'rgba(15, 23, 42, 0.97)',
+                backdropFilter: 'blur(12px)',
+                borderRadius: '1.25rem',
+                padding: '1.5rem',
+                boxShadow: '0 15px 30px rgba(0,0,0,0.3)',
+                color: 'white',
+                zIndex: 999999,
+                pointerEvents: 'none',
+              }}
+            >
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '-12px',
+                  left: '-12px',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  background: step.iconColor,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1rem',
+                  fontWeight: 800,
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.25)',
+                  fontFamily: '"Poppins", sans-serif',
+                }}
+              >
+                {step.number}
+              </div>
+
+              <div
+                style={{
+                  width: '2.75rem',
+                  height: '2.75rem',
+                  borderRadius: '0.625rem',
+                  background: step.iconColor,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '0.75rem',
+                }}
+              >
+                <Icon color="white" size={20} />
+              </div>
+
+              <h4
+                style={{
+                  fontFamily: '"Poppins", sans-serif',
+                  fontSize: '17px',
+                  fontWeight: 600,
+                  marginBottom: '0.5rem',
+                  lineHeight: '1.3',
+                }}
+              >
+                {step.title}
+              </h4>
+
+              <p
+                style={{
+                  fontFamily: '"Inter", sans-serif',
+                  fontSize: '13px',
+                  color: 'rgba(255,255,255,0.9)',
+                  lineHeight: '1.5',
+                  fontWeight: 400,
+                }}
+              >
+                {step.description}
+              </p>
+            </motion.div>
+          )}
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+/* ============================================
+   MAIN COMPONENT
+============================================ */
+
 export default function TutorialPage() {
   let colorIndex = 0
-
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
 
   useEffect(() => {
     const link = document.createElement('link')
-    link.href =
-      'https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600&display=swap'
+    link.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600&display=swap'
     link.rel = 'stylesheet'
     document.head.appendChild(link)
 
@@ -390,14 +587,14 @@ export default function TutorialPage() {
                     letterSpacing: '-0.025em',
                   }}
                 >
-                  
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-                  <img src={logoImage} alt="MeetHub Logo" style={{ width: '7.5rem', height: '7.5rem', objectFit: 'contain' }} />
-                </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+                    <img src={logoImage} alt="MeetHub Logo" style={{ width: '7.5rem', height: '7.5rem', objectFit: 'contain' }} />
+                  </div>
 
                   <span style={{ color: 'rgb(6, 182, 212)', fontWeight: 900 }}>Explore MeetHub</span>{' '}
                   <span style={{ color: '#0F172A' }}>with Detailed Step-by-Step Tutorials</span>
                 </motion.h1>
+
                 <motion.p
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -414,6 +611,7 @@ export default function TutorialPage() {
                   Learn how to streamline operations, boost productivity, and scale faster with comprehensive tutorials
                   covering setup, configuration, and advanced features.
                 </motion.p>
+
                 {/* Feature List */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -509,216 +707,216 @@ export default function TutorialPage() {
                 fontWeight: 400,
               }}
             >
-              Master MeetHub with our comprehensive guide covering every feature from sign-up to advanced
-              functionality
+              Master MeetHub with our comprehensive guide covering every feature from sign-up to advanced functionality
             </p>
           </div>
         </section>
 
-        {/* ================= SECTION 1 & 2 ================= */}
+          {/* Tutorial Cards Section */}
         <section style={{ padding: '1.5rem 1.5rem 2rem' }}>
           <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1.5rem' }}>
-
+            {/* =========================
+                Top Row: Section 1 + Section 2 Step 2
+            ========================= */}
             <div
               style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
-                gap: '3rem',
-                marginBottom: '5rem',
+                gap: '4rem',
+                marginBottom: '3rem',
+                alignItems: 'stretch',
               }}
             >
-              {[tutorialSections[0], tutorialSections[1]].map((section, index) => {
-                const step = section.steps[0]
-                const boxStyle = getScreenshotStyle(index)
-                const Icon = step.icon
-                const isHovered = hoveredCard === step.number
+              {/* LEFT → Section 1 Step 1 */}
+              {(() => {
+                const section1 = tutorialSections.find(s => s.sectionId === 1)!
+                const step1 = section1.steps[0]
 
                 return (
-                  <div key={section.sectionId}>
-                    <h3
-                      style={{
-                        fontFamily: '"Poppins", sans-serif',
-                        fontSize: '32px',
-                        fontWeight: 700,
-                        color: 'rgb(20, 47, 83)',
-                        marginBottom: '0.75rem',
-                      }}
-                    >
-                      {section.sectionTitle}
-                    </h3>
-
-                    <p
-                      style={{
-                        fontFamily: '"Inter", sans-serif',
-                        fontSize: '16px',
-                        color: '#64748b',
-                        marginBottom: '1.5rem',
-                      }}
-                    >
-                      {section.sectionDescription}
-                    </p>
-
-                    <div
-                      onMouseEnter={() => setHoveredCard(step.number)}
-                      onMouseLeave={() => setHoveredCard(null)}
-                      style={{
-                        background: boxStyle.bg,
-                        border: `2px solid ${boxStyle.border}`,
-                        borderRadius: '1.75rem',
-                        padding: '0.5rem',
-                        boxShadow: `0 4px 12px ${boxStyle.shadow}`,
-                      }}
-                    >
-                      <div style={{ borderRadius: '1.1rem', overflow: 'hidden' }}>
-                        <img
-                          src={step.image}
-                          alt={step.title}
-                          style={{ width: '100%', display: 'block' }}
-                        />
-                      </div>
-                    </div>
-
-                    {/* TOOLTIP */}
-                    {isHovered && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                  <div key="section1" style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ marginBottom: '1.5rem', minHeight: '120px' }}>
+                      <h3
                         style={{
-                          position: 'fixed',
-                          top: '20%',
-                          left: '50%',
-                          transform: 'translateX(-50%)',
-                          width: '380px',
-                          background: 'rgba(15,23,42,0.97)',
-                          color: 'white',
-                          borderRadius: '1.25rem',
-                          padding: '1.5rem',
-                          zIndex: 9999,
+                          fontFamily: '"Poppins", sans-serif',
+                          fontSize: '28px',
+                          fontWeight: 700,
+                          color: 'rgb(20, 47, 83)',
+                          marginBottom: '0.5rem',
                         }}
                       >
-                        <div
-                          style={{
-                            width: '3rem',
-                            height: '3rem',
-                            borderRadius: '0.75rem',
-                            background: step.iconColor,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            marginBottom: '0.75rem',
-                          }}
-                        >
-                          <Icon color="white" size={22} />
-                        </div>
-                        <h4 style={{ fontSize: '18px', fontWeight: 600 }}>{step.title}</h4>
-                        <p style={{ fontSize: '14px', opacity: 0.85 }}>
-                          {step.description}
-                        </p>
-                      </motion.div>
-                    )}
+                        {section1.sectionTitle}
+                      </h3>
+                      <p
+                        style={{
+                          fontFamily: '"Inter", sans-serif',
+                          fontSize: '15px',
+                          color: '#64748b',
+                          lineHeight: '1.6',
+                        }}
+                      >
+                        {section1.sectionDescription}
+                      </p>
+                    </div>
+
+                    <div style={{ flex: 1 }}>
+                      <ScreenshotCard
+                        step={step1}
+                        stepIndex={0}
+                        colorIndex={0}
+                        isHovered={hoveredCard === step1.number}
+                        onHover={setHoveredCard}
+                      />
+                    </div>
+                  </div>
+                )
+              })()}
+
+              {/* RIGHT → Section 2 Step 2 */}
+              {(() => {
+                const section2 = tutorialSections.find(s => s.sectionId === 2)!
+                const step2 = section2.steps.find(s => s.number === 2)!
+
+                return (
+                  <div key="section2-step2" style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ marginBottom: '1.5rem', minHeight: '120px' }}>
+                      <h3
+                        style={{
+                          fontFamily: '"Poppins", sans-serif',
+                          fontSize: '28px',
+                          fontWeight: 700,
+                          color: 'rgb(20, 47, 83)',
+                          marginBottom: '0.5rem',
+                        }}
+                      >
+                        {section2.sectionTitle}
+                      </h3>
+                      <p
+                        style={{
+                          fontFamily: '"Inter", sans-serif',
+                          fontSize: '15px',
+                          color: '#64748b',
+                          lineHeight: '1.6',
+                        }}
+                      >
+                        {section2.sectionDescription}
+                      </p>
+                    </div>
+
+                    <div style={{ flex: 1 }}>
+                      <ScreenshotCard
+                        step={step2}
+                        stepIndex={0}
+                        colorIndex={1}
+                        isHovered={hoveredCard === step2.number}
+                        onHover={setHoveredCard}
+                      />
+                    </div>
+                  </div>
+                )
+              })()}
+            </div>
+
+            {/* =========================
+                Section 2 Remaining Steps (3-8)
+            ========================= */}
+            {(() => {
+              const section2 = tutorialSections.find(s => s.sectionId === 2)!
+              const remainingSteps = section2.steps.filter(s => s.number !== 2)
+
+              return (
+                <div key="section2-remaining" style={{ marginBottom: '3rem' }}>
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(2, 1fr)',
+                      gap: '4rem',
+                      alignItems: 'start',
+                    }}
+                  >
+                    {remainingSteps.map((step, stepIndex) => (
+                      <ScreenshotCard
+                        key={step.number}
+                        step={step}
+                        stepIndex={stepIndex}
+                        colorIndex={step.number}
+                        isHovered={hoveredCard === step.number}
+                        onHover={setHoveredCard}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )
+            })()}
+
+            {/* =========================
+                Render remaining sections (skip Section 1 and 2)
+            ========================= */}
+            {tutorialSections
+              .filter(section => section.sectionId !== 1 && section.sectionId !== 2)
+              .map((section) => {
+                const stepsToRender = section.steps
+                if (stepsToRender.length === 0) return null
+
+                const isMultiCard = stepsToRender.length > 1
+                const gridCols = isMultiCard ? 'repeat(2, 1fr)' : '1fr'
+
+                return (
+                  <div key={section.sectionId} style={{ marginBottom: '3rem' }}>
+                    {/* Section Header */}
+                    <div style={{ marginBottom: '1.5rem' }}>
+                      <h3
+                        style={{
+                          fontFamily: '"Poppins", sans-serif',
+                          fontSize: '28px',
+                          fontWeight: 700,
+                          color: 'rgb(20, 47, 83)',
+                          lineHeight: '1.3',
+                          marginBottom: '0.5rem',
+                        }}
+                      >
+                        {section.sectionTitle}
+                      </h3>
+                      <p
+                        style={{
+                          fontFamily: '"Inter", sans-serif',
+                          fontSize: '15px',
+                          fontWeight: 400,
+                          color: '#64748b',
+                          lineHeight: '1.6',
+                        }}
+                      >
+                        {section.sectionDescription}
+                      </p>
+                    </div>
+
+                    {/* Cards Grid */}
+                    <div
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: gridCols,
+                        gap: '4rem',
+                        alignItems: 'start',
+                      }}
+                    >
+                      {stepsToRender.map((step, stepIndex) => (
+                        <ScreenshotCard
+                          key={step.number}
+                          step={step}
+                          stepIndex={stepIndex}
+                          colorIndex={colorIndex++}
+                          isHovered={hoveredCard === step.number}
+                          onHover={setHoveredCard}
+                        />
+                      ))}
+                    </div>
                   </div>
                 )
               })}
-            </div>
-
-            {/* ================= SECTIONS 3+ (UNCHANGED) ================= */}
-            {tutorialSections.slice(2).map((section) => (
-              <div key={section.sectionId} style={{ marginBottom: '4rem' }}>
-                <div style={{ marginBottom: '2rem' }}>
-                  <h3
-                    style={{
-                      fontFamily: '"Poppins", sans-serif',
-                      fontSize: '32px',
-                      fontWeight: 700,
-                      color: 'rgb(20, 47, 83)',
-                      marginBottom: '0.75rem',
-                    }}
-                  >
-                    {section.sectionTitle}
-                  </h3>
-                  <p style={{ fontSize: '16px', color: '#64748b' }}>
-                    {section.sectionDescription}
-                  </p>
-                </div>
-
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
-                    gap: '2.5rem',
-                  }}
-                >
-                  {section.steps.map((step) => {
-                    const boxStyle = getScreenshotStyle(colorIndex++)
-                    const Icon = step.icon
-                    const isHovered = hoveredCard === step.number
-
-                    return (
-                      <div
-                        key={step.number}
-                        onMouseEnter={() => setHoveredCard(step.number)}
-                        onMouseLeave={() => setHoveredCard(null)}
-                      >
-                        <div
-                          style={{
-                            position: 'relative',
-                            background: boxStyle.bg,
-                            border: `2px solid ${boxStyle.border}`,
-                            borderRadius: '1.75rem',
-                            padding: '0.5rem',
-                            boxShadow: `0 4px 12px ${boxStyle.shadow}`,
-                          }}
-                        >
-                          <div style={{ borderRadius: '1.1rem', overflow: 'hidden' }}>
-                            <img src={step.image} alt={step.title} style={{ width: '100%' }} />
-                          </div>
-                        </div>
-
-                        {isHovered && (
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            style={{
-                              position: 'fixed',
-                              top: '20%',
-                              left: '50%',
-                              transform: 'translateX(-50%)',
-                              width: '380px',
-                              background: 'rgba(15,23,42,0.97)',
-                              color: 'white',
-                              borderRadius: '1.25rem',
-                              padding: '1.5rem',
-                              zIndex: 9999,
-                            }}
-                          >
-                            <div
-                              style={{
-                                width: '3rem',
-                                height: '3rem',
-                                borderRadius: '0.75rem',
-                                background: step.iconColor,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                marginBottom: '0.75rem',
-                              }}
-                            >
-                              <Icon color="white" size={22} />
-                            </div>
-                            <h4 style={{ fontSize: '18px', fontWeight: 600 }}>{step.title}</h4>
-                            <p style={{ fontSize: '14px', opacity: 0.85 }}>
-                              {step.description}
-                            </p>
-                          </motion.div>
-                        )}
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            ))}
           </div>
         </section>
+     
+
+
         {/* CTA SECTION */}
         <div
           style={{
@@ -729,7 +927,7 @@ export default function TutorialPage() {
           }}
         >
           <button
-            onClick={() => (window.location.href = 'https://frontend-8x7e.onrender.com/')}
+            onClick={() => (window.location.href = 'https://meethub.biz/2b1a38e0-f87c-4069-b8c6-4ed44e42d739/dashboard')}
             style={{
               fontFamily: '"Poppins", sans-serif',
               padding: '1.25rem 3.5rem',
@@ -767,6 +965,3 @@ export default function TutorialPage() {
     </div>
   )
 }
- 
-
-        
