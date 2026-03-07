@@ -66,7 +66,17 @@ const BRAND = {
 }
 
 // ─── TUTORIAL DATA — MeetHub content ─────────────────────────────────────────
-const tutorialSections = [
+
+interface TutorialStep {
+  number: number
+  title: string
+  description: string
+  icon: React.ComponentType<{ size?: number; color?: string; strokeWidth?: number; style?: React.CSSProperties }>
+  iconColor: string
+  image: string
+  details: string[]
+}
+const tutorialSections: Array<{ sectionId: number; sectionTitle: string; sectionTag: string; sectionDescription: string; sectionColor: string; steps: TutorialStep[] }> = [
   {
     sectionId: 1,
     sectionTitle: 'Registration & Login',
@@ -528,7 +538,7 @@ const ALL_STEPS = tutorialSections.flatMap(s => s.steps)
 const TOTAL_STEPS = ALL_STEPS.length
 
 // ─── ZOOM MODAL ───────────────────────────────────────────────────────────────
-const ZoomModal = ({ show, onClose, step, isMobile }) => {
+const ZoomModal = ({ show, onClose, step, isMobile }: { show: boolean; onClose: () => void; step: TutorialStep | null; isMobile: boolean }) => {
   useEffect(() => {
     if (!show) return
     const fn = (e) => { if (e.key === 'Escape') onClose() }
@@ -624,10 +634,10 @@ const ZoomModal = ({ show, onClose, step, isMobile }) => {
 }
 
 // ─── INDEX SIDEBAR ────────────────────────────────────────────────────────────
-const IndexSidebar = ({ activeGlobalIdx, onJump, isOpen, onToggle, isMobile, footerOffset }) => {
+const IndexSidebar = ({ activeGlobalIdx, onJump, isOpen, onToggle, isMobile, footerOffset }: { activeGlobalIdx: number; onJump: (idx: number) => void; isOpen: boolean; onToggle: () => void; isMobile: boolean; footerOffset: number }) => {
   const SIDEBAR_W = 272
 
-  const [openSections, setOpenSections] = useState(() => {
+  const [openSections, setOpenSections] = useState<Record<number, boolean>>(() => {
     const map = {}
     tutorialSections.forEach(s => { map[s.sectionId] = false })
     const active = tutorialSections.find(s =>
@@ -637,7 +647,7 @@ const IndexSidebar = ({ activeGlobalIdx, onJump, isOpen, onToggle, isMobile, foo
     return map
   })
 
-  const toggleSection = id => setOpenSections(prev => ({ ...prev, [id]: !prev[id] }))
+  const toggleSection = (id: number) => setOpenSections(prev => ({ ...prev, [id]: !prev[id] }))
 
   if (isMobile) return null
 
@@ -811,8 +821,7 @@ const IndexSidebar = ({ activeGlobalIdx, onJump, isOpen, onToggle, isMobile, foo
 }
 
 // ─── STEP CARD ────────────────────────────────────────────────────────────────
-const StepCard = ({ step, isMobile, isTablet, globalIdx, canPrev, canNext, onPrev, onNext, setGlobalIdx }) => {
-  const [showZoom, setShowZoom] = useState(false)
+const StepCard = ({ step, isMobile, isTablet, globalIdx, canPrev, canNext, onPrev, onNext, setGlobalIdx, setIsUserNavigation }: { step: TutorialStep; isMobile: boolean; isTablet: boolean; globalIdx: number; canPrev: boolean; canNext: boolean; onPrev: () => void; onNext: () => void; setGlobalIdx: React.Dispatch<React.SetStateAction<number>>; setIsUserNavigation: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const [imgLoaded, setImgLoaded] = useState(false)
   const Icon = step.icon
 
@@ -1010,7 +1019,7 @@ const StepCard = ({ step, isMobile, isTablet, globalIdx, canPrev, canNext, onPre
 
             {/* Detail bullets */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', flex: 1 }}>
-              {step.details.map((detail, i) => (
+              {step.details.map((detail: string, i: number) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: -10 }}
@@ -1128,7 +1137,7 @@ const StepCard = ({ step, isMobile, isTablet, globalIdx, canPrev, canNext, onPre
 }
 
 // ─── PROGRESS BAR ─────────────────────────────────────────────────────────────
-const ProgressBar = ({ current, total, color }) => (
+const ProgressBar = ({ current, total, color }: { current: number; total: number; color: string }) => (
   <div style={{ width: '100%', height: '4px', background: 'rgba(0,0,0,0.08)', borderRadius: '4px', overflow: 'hidden' }}>
     <motion.div
       animate={{ width: `${((current + 1) / total) * 100}%` }}
@@ -1145,8 +1154,8 @@ export default function TutorialPage() {
   const [globalIdx,   setGlobalIdx]   = useState(0)
   const [viewMode,    setViewMode]    = useState('step')
   const [sidebarOpen, setSidebarOpen] = useState(true)
-  const contentRef = useRef(null)
-  const footerRef  = useRef(null)
+  const contentRef = useRef<HTMLDivElement | null>(null)
+  const footerRef  = useRef<HTMLDivElement | null>(null)
   
   const [footerOffset, setFooterOffset] = useState(0)
   const [isUserNavigation, setIsUserNavigation] = useState(false)
@@ -1411,7 +1420,7 @@ useEffect(() => {
             </div>
             <div style={{ width: '100%', maxWidth: '1160px' }}>
               <AnimatePresence mode="wait">
-                <StepCard key={globalIdx} step={currentStep} isMobile={isMobile} isTablet={isTablet} globalIdx={globalIdx} canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} setGlobalIdx={setGlobalIdx} />
+                <StepCard key={globalIdx} step={currentStep} isMobile={isMobile} isTablet={isTablet} globalIdx={globalIdx} canPrev={canPrev} canNext={canNext} onPrev={prev} onNext={next} setGlobalIdx={setGlobalIdx} setIsUserNavigation={setIsUserNavigation}/>
               </AnimatePresence>
             </div>
           </section>
