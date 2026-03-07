@@ -541,7 +541,7 @@ const TOTAL_STEPS = ALL_STEPS.length
 const ZoomModal = ({ show, onClose, step, isMobile }: { show: boolean; onClose: () => void; step: TutorialStep | null; isMobile: boolean }) => {
   useEffect(() => {
     if (!show) return
-    const fn = (e) => { if (e.key === 'Escape') onClose() }
+    const fn = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
     document.addEventListener('keydown', fn)
     document.body.style.overflow = 'hidden'
     return () => { document.removeEventListener('keydown', fn); document.body.style.overflow = '' }
@@ -638,7 +638,7 @@ const IndexSidebar = ({ activeGlobalIdx, onJump, isOpen, onToggle, isMobile, foo
   const SIDEBAR_W = 272
 
   const [openSections, setOpenSections] = useState<Record<number, boolean>>(() => {
-    const map = {}
+    const map: Record<number, boolean> = {}
     tutorialSections.forEach(s => { map[s.sectionId] = false })
     const active = tutorialSections.find(s =>
       s.steps.some(st => ALL_STEPS.findIndex(x => x.number === st.number) === activeGlobalIdx)
@@ -647,7 +647,7 @@ const IndexSidebar = ({ activeGlobalIdx, onJump, isOpen, onToggle, isMobile, foo
     return map
   })
 
-  const toggleSection = (id: number) => setOpenSections(prev => ({ ...prev, [id]: !prev[id] }))
+const toggleSection = (id: number) => setOpenSections((prev: Record<number, boolean>) => ({ ...prev, [id]: !prev[id] }))
 
   if (isMobile) return null
 
@@ -824,6 +824,7 @@ const IndexSidebar = ({ activeGlobalIdx, onJump, isOpen, onToggle, isMobile, foo
 const StepCard = ({ step, isMobile, isTablet, globalIdx, canPrev, canNext, onPrev, onNext, setGlobalIdx, setIsUserNavigation }: { step: TutorialStep; isMobile: boolean; isTablet: boolean; globalIdx: number; canPrev: boolean; canNext: boolean; onPrev: () => void; onNext: () => void; setGlobalIdx: React.Dispatch<React.SetStateAction<number>>; setIsUserNavigation: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const [imgLoaded, setImgLoaded] = useState(false)
   const Icon = step.icon
+  const [showZoom, setShowZoom] = useState(false)
 
   return (
     <>
