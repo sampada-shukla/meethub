@@ -1183,7 +1183,7 @@ export default function TutorialPage() {
   const [isTablet,    setIsTablet]    = useState(false)
   const [globalIdx,   setGlobalIdx]   = useState(0)
   const [viewMode,    setViewMode]    = useState('step')
-  const [sidebarOpen, setSidebarOpen] = useState(() => window.innerWidth >= 768)
+  const [sidebarOpen, setSidebarOpen] = useState(true)
   const contentRef = useRef<HTMLDivElement | null>(null)
   const footerRef  = useRef<HTMLDivElement | null>(null)
   
@@ -1262,6 +1262,10 @@ const next = useCallback(() => {
     fn(); window.addEventListener('resize', fn)
     return () => window.removeEventListener('resize', fn)
   }, [])
+
+  useEffect(()=> {
+    setSidebarOpen(!isMobile && !isTablet)
+  },[isMobile, isTablet])
   
 useEffect(() => {
 
